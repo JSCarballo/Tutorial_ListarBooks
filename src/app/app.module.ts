@@ -6,10 +6,16 @@ import { AppComponent } from './app.component';
 import { BookModule } from './book/book.module';
 import { EditorialModule } from './editorial/editorial.module';
 import { HttpClientModule } from '@angular/common/http';
+import { HeaderComponent } from './header/header.component';
+import { BookListComponent } from './book-list/book-list.component';
+import { BookDetailComponent } from './book-detail/book-detail.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    BookListComponent,
+    BookDetailComponent
   ],
   imports: [
     BrowserModule,
