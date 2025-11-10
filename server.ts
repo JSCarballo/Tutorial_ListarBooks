@@ -18,7 +18,25 @@ export function app(): express.Express {
   server.set('views', browserDistFolder);
 
   // Example Express Rest API endpoints
-  // server.get('/api/**', (req, res) => { });
+  const books = [
+    { id: 1, title: 'Book 1', author: 'Author 1', description: 'This is a great book.' },
+    { id: 2, title: 'Book 2', author: 'Author 2', description: 'This is another great book.' },
+    { id: 3, title: 'Book 3', author: 'Author 3', description: 'This is also a great book.' }
+  ];
+
+  server.get('/api/books', (req, res) => {
+    res.json(books);
+  });
+
+  server.get('/api/books/:id', (req, res) => {
+    const book = books.find(b => b.id === parseInt(req.params.id));
+    if (book) {
+      res.json(book);
+    } else {
+      res.status(404).send('Book not found');
+    }
+  });
+
   // Serve static files from /browser
   server.get('*.*', express.static(browserDistFolder, {
     maxAge: '1y'

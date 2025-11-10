@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-book-detail',
@@ -9,11 +10,17 @@ import { ActivatedRoute } from '@angular/router';
 export class BookDetailComponent implements OnInit {
   book: any;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    private dataService: DataService
+  ) { }
 
   ngOnInit(): void {
     const bookId = this.route.snapshot.paramMap.get('id');
-    // In a real app, you would fetch the book from a service
-    this.book = { id: bookId, title: `Book ${bookId}`, author: `Author ${bookId}`, description: 'This is a great book.' };
+    if (bookId) {
+      this.dataService.getBook(bookId).subscribe(book => {
+        this.book = book;
+      });
+    }
   }
 }
